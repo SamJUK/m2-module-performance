@@ -1,0 +1,21 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: CI
+    uses: samjuk/github-actions/.github/workflows/magento2-module.yaml@master
+    with:
+      # ponytail: no tests yet; the workflow fails if tests are asked for and none exist.
+      run_unit_tests: false
+      run_integration_tests: false

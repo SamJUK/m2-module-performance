@@ -1,0 +1,77 @@
+{
+    "name": "samjuk/m2-module-performance",
+    "description": "Experimental, not for production: Magento 2 storefront TTFB experiments (fewer queries, cached hot lookups, opcache preload, render-time metrics)",
+    "type": "magento2-module",
+    "license": [
+        "MIT"
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "ext-pcre": "*",
+        "magento/framework": "^103.0",
+        "magento/zend-db": "^1.16",
+        "magento/module-backend": "^102.0",
+        "magento/module-catalog": "^104.0",
+        "magento/module-checkout": "^100.4",
+        "magento/module-config": "^101.2",
+        "magento/module-configurable-product": "^100.4",
+        "magento/module-csp": "^100.4",
+        "magento/module-eav": "^102.1",
+        "magento/module-elasticsearch": "^101.0",
+        "magento/module-msrp": "^100.4",
+        "magento/module-review": "^100.4",
+        "magento/module-sales-rule": "^101.2",
+        "magento/module-store": "^101.1",
+        "magento/module-swatches": "^100.4",
+        "symfony/process": "^5.4 || ^6.4 || ^7.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "SamJUK\\Performance\\": ""
+        }
+    },
+    "require-dev": {
+        "samjuk/dev-standards": "^1.0",
+        "magento/magento-coding-standard": "^41.0",
+        "bitexpert/phpstan-magento": "^0.44.0",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.3"
+    },
+    "homepage": "https://github.com/SamJUK/m2-module-performance",
+    "authors": [
+        {
+            "name": "Sam James",
+            "email": "sam@samdjames.uk",
+            "homepage": "https://www.samdjames.uk"
+        }
+    ],
+    "keywords": [
+        "magento2",
+        "magento2-module",
+        "mage-os",
+        "performance",
+        "ttfb",
+        "opcache-preload",
+        "server-timing",
+        "experimental"
+    ],
+    "repositories": [
+        {
+            "name": "mage-os",
+            "type": "composer",
+            "url": "https://mirror.mage-os.org/"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "magento/composer-dependency-version-audit-plugin": false,
+            "magento/magento-composer-installer": false,
+            "phpstan/extension-installer": true
+        }
+    }
+}

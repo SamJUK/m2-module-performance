@@ -1,0 +1,20 @@
+includes:
+    - vendor/samjuk/dev-standards/php/magento/phpstan.neon
+
+parameters:
+    paths:
+        - Build
+        - Console
+        - Model
+        - Observer
+        - Plugin
+        - registration.php
+        - bin
+        - preload.php
+    # ponytail: experimental module, level 1 like the other modules; dev-standards default is 6.
+    level: 1
+    # Magento's docblocks under-promise (getStoreFilter() can return null), so don't trust them as certain.
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # Magento defines BP at boot.
+        - '#^Constant BP not found\.$#'

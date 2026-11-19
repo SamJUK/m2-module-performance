@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\ResourceModel\Product">
+        <plugin name="samjuk_performance_reuse_product_load_data" type="SamJUK\Performance\Plugin\ReuseProductLoadData"/>
+    </type>
+    <type name="Magento\Catalog\Model\Layer\Filter\DataProvider\Category">
+        <plugin name="samjuk_performance_reuse_current_category" type="SamJUK\Performance\Plugin\ReuseCurrentCategoryInLayer"/>
+    </type>
+    <type name="Magento\Catalog\Model\Category">
+        <plugin name="samjuk_performance_memoise_has_children" type="SamJUK\Performance\Plugin\MemoiseHasChildren"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Model\AttributeOptionProvider">
+        <plugin name="samjuk_performance_memoise_configurable_options" type="SamJUK\Performance\Plugin\MemoiseConfigurableOptions"/>
+    </type>
+    <type name="Magento\Msrp\Model\Msrp">
+        <plugin name="samjuk_performance_msrp_apply_to" type="SamJUK\Performance\Plugin\MsrpApplyTo"/>
+    </type>
+    <type name="Magento\Csp\Model\CspRenderer">
+        <plugin name="samjuk_performance_single_csp_header" type="SamJUK\Performance\Plugin\SingleCspHeader"/>
+    </type>
+    <type name="Magento\Checkout\CustomerData\DirectoryData">
+        <plugin name="samjuk_performance_directory_data_cache" type="SamJUK\Performance\Plugin\CacheDirectoryData"/>
+    </type>
+    <type name="Magento\Review\Block\Form">
+        <plugin name="samjuk_performance_review_form_ratings" type="SamJUK\Performance\Plugin\MemoiseReviewFormRatings"/>
+    </type>
+    <type name="Magento\Review\Model\ResourceModel\Review\Collection">
+        <plugin name="samjuk_performance_review_votes" type="SamJUK\Performance\Plugin\BatchReviewVotes"/>
+    </type>
+    <type name="Magento\Eav\Model\Entity\Attribute\Source\Table">
+        <plugin name="samjuk_performance_option_text" type="SamJUK\Performance\Plugin\MemoiseOptionText"/>
+    </type>
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Collection">
+        <plugin name="samjuk_performance_parent_ids" type="SamJUK\Performance\Plugin\BatchParentIds"/>
+        <plugin name="samjuk_performance_configurable_salable" type="SamJUK\Performance\Plugin\BatchConfigurableSalable"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Model\Product\Type\Configurable">
+        <plugin name="samjuk_performance_parent_ids" type="SamJUK\Performance\Plugin\BatchParentIds"/>
+        <plugin name="samjuk_performance_configurable_salable" type="SamJUK\Performance\Plugin\BatchConfigurableSalable"/>
+    </type>
+    <type name="Magento\Swatches\Block\Product\Renderer\Listing\Configurable">
+        <plugin name="samjuk_performance_swatch_key_attributes" type="SamJUK\Performance\Plugin\SkipSwatchKeyAttributes"/>
+    </type>
+    <type name="Magento\Swatches\Helper\Data">
+        <plugin name="samjuk_performance_swatch_key_attributes" type="SamJUK\Performance\Plugin\SkipSwatchKeyAttributes"/>
+        <plugin name="samjuk_performance_swatch_image_variations" type="SamJUK\Performance\Plugin\BatchSwatchImageVariations"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\AbstractProduct">
+        <plugin name="samjuk_performance_swatch_image_variations" type="SamJUK\Performance\Plugin\BatchSwatchImageVariations" sortOrder="-10"/>
+    </type>
+    <type name="Magento\Framework\App\Response\Http">
+        <plugin name="samjuk_performance_render_time" type="SamJUK\Performance\Plugin\RenderTime"/>
+    </type>
+    <type name="Magento\Framework\App\FrontControllerInterface">
+        <plugin name="samjuk_performance_timing_dispatch" type="SamJUK\Performance\Plugin\Timing\Dispatch" sortOrder="-1000"/>
+    </type>
+    <type name="Magento\Framework\Controller\ResultInterface">
+        <plugin name="samjuk_performance_timing_render" type="SamJUK\Performance\Plugin\Timing\Render"/>
+    </type>
+    <type name="Magento\Framework\View\Layout\Builder">
+        <plugin name="samjuk_performance_timing_layout" type="SamJUK\Performance\Plugin\Timing\Layout"/>
+    </type>
+    <type name="Magento\Framework\App\PageCache\Kernel">
+        <plugin name="samjuk_performance_timing_full_page_cache" type="SamJUK\Performance\Plugin\Timing\FullPageCache"/>
+    </type>
+    <type name="Magento\Framework\Search\SearchEngineInterface">
+        <plugin name="samjuk_performance_timing_search" type="SamJUK\Performance\Plugin\Timing\Search"/>
+    </type>
+</config>

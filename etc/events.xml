@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="store_group_save">
+        <observer name="samjuk_performance_clean_store_scopes" instance="SamJUK\Performance\Observer\CleanStoreScopes"/>
+    </event>
+    <event name="store_group_delete">
+        <observer name="samjuk_performance_clean_store_scopes" instance="SamJUK\Performance\Observer\CleanStoreScopes"/>
+    </event>
+</config>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="samjuk_performance" translate="label" sortOrder="900" showInDefault="1">
+            <label>Performance</label>
+            <tab>advanced</tab>
+            <resource>Magento_Config::config_system</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1">
+                <label>Storefront</label>
+                <field id="queries" translate="label comment" type="select" sortOrder="10" showInDefault="1">
+                    <label>Skip repeated queries</label>
+                    <comment>Reuses data already loaded on the page (product, category, ratings, option labels, coupons).</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="directory_data_cache" translate="label comment" type="select" sortOrder="20" showInDefault="1">
+                    <label>Cache directory-data section</label>
+                    <comment>Edits to the region tables need a config cache clean.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="view_config_cache" translate="label" type="select" sortOrder="30" showInDefault="1">
+                    <label>Cache view.xml</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="price_aggregation_dedupe" translate="label" type="select" sortOrder="40" showInDefault="1">
+                    <label>Skip duplicate price histogram search</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="csp_single_header" translate="label" type="select" sortOrder="50" showInDefault="1">
+                    <label>Build CSP header once</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="metrics" translate="label comment" sortOrder="20" showInDefault="1">
+                <label>Metrics</label>
+                <comment>Time from PHP receiving the request to sending the response, split into boot, controller, render, layout, database, cache and search. Varnish caches it with the page, so cached pages show their miss time.</comment>
+                <field id="server_timing" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Server-Timing header</label>
+                    <comment>Shown in browser dev tools under Timing.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="header" translate="label" type="select" sortOrder="20" showInDefault="1">
+                    <label>X-Render-Time header</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="footer" translate="label" type="select" sortOrder="30" showInDefault="1">
+                    <label>Show render time in footer</label>
+                    <comment>Far right of the copyright line, with the breakdown on click. Visible to every visitor.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

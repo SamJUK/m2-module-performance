@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <samjuk_performance>
+            <general>
+                <queries>1</queries>
+                <directory_data_cache>1</directory_data_cache>
+                <view_config_cache>1</view_config_cache>
+                <price_aggregation_dedupe>1</price_aggregation_dedupe>
+                <csp_single_header>1</csp_single_header>
+            </general>
+            <metrics>
+                <server_timing>0</server_timing>
+                <header>0</header>
+                <footer>0</footer>
+            </metrics>
+        </samjuk_performance>
+        <dev>
+            <caching>
+                <!-- Core, off by default: PLP 95 -> 53 queries for more EAV cache in Redis -->
+                <cache_user_defined_attributes>1</cache_user_defined_attributes>
+            </caching>
+        </dev>
+    </default>
+</config>
