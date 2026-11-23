@@ -84,7 +84,10 @@ class BatchConfigurableSalable
         // getSize()'s select, grouped per parent
         $select = $this->salableProcessor->process($collection)->getSelectCountSql()
             ->reset(Select::COLUMNS)
-            ->columns(['parent_id' => 'link_table.parent_id', 'children' => new \Zend_Db_Expr('COUNT(DISTINCT e.entity_id)')])
+            ->columns([
+                'parent_id' => 'link_table.parent_id',
+                'children' => new \Zend_Db_Expr('COUNT(DISTINCT e.entity_id)'),
+            ])
             ->group('link_table.parent_id');
         $byLink = $collection->getConnection()->fetchPairs($select);
         $linkField = $this->metadataPool->getMetadata(ProductInterface::class)->getLinkField();

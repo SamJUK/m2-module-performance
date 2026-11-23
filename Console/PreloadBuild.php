@@ -20,7 +20,13 @@ class PreloadBuild extends Command
     {
         $this->setName('preload:build')
             ->setDescription('Registration manifest, DI metadata constants and opcache preload list')
-            ->addOption('classes', null, InputOption::VALUE_REQUIRED, 'Captured class list', 'app/etc/preload-classes.txt')
+            ->addOption(
+                'classes',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Captured class list',
+                'app/etc/preload-classes.txt'
+            )
             ->addOption('ini', null, InputOption::VALUE_REQUIRED, 'Write the opcache.preload ini here')
             ->addOption('user', null, InputOption::VALUE_REQUIRED, 'opcache.preload_user', 'www-data');
     }
@@ -51,7 +57,9 @@ class PreloadBuild extends Command
                 $output->writeln("  - $name ($why)", OutputInterface::VERBOSITY_VERBOSE);
             }
         } else {
-            $output->writeln("<comment>No class list at $classes: preloading DI constants only. See preload:capture.</comment>");
+            $output->writeln(
+                "<comment>No class list at $classes: preloading DI constants only. See preload:capture.</comment>"
+            );
         }
 
         if ($ini = $input->getOption('ini')) {

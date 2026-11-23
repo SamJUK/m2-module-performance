@@ -28,13 +28,17 @@ class ReuseProductLoadData
 
     public function aroundGetCategoryIds(ProductResource $subject, callable $proceed, $product): array
     {
-        $links = $this->enabled() && $product instanceof Product ? $product->getExtensionAttributes()->getCategoryLinks() : null;
+        $links = $this->enabled() && $product instanceof Product
+            ? $product->getExtensionAttributes()->getCategoryLinks()
+            : null;
         return $links === null ? $proceed($product) : array_map(static fn ($link) => $link->getCategoryId(), $links);
     }
 
     public function aroundGetWebsiteIds(ProductResource $subject, callable $proceed, $product)
     {
-        $ids = $this->enabled() && $product instanceof Product ? $product->getExtensionAttributes()->getWebsiteIds() : null;
+        $ids = $this->enabled() && $product instanceof Product
+            ? $product->getExtensionAttributes()->getWebsiteIds()
+            : null;
         return $ids ?? $proceed($product);
     }
 

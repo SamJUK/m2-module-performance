@@ -27,7 +27,10 @@ class SkipSwatchKeyAttributes
     public function aroundGetCacheKey(ListingRenderer $subject, callable $proceed)
     {
         if (!$this->scopeConfig->isSetFlag('samjuk_performance/general/queries')
-            || array_intersect_key($this->request->getQuery()->toArray(), $this->eavConfig->getEntityAttributes(Product::ENTITY))
+            || array_intersect_key(
+                $this->request->getQuery()->toArray(),
+                $this->eavConfig->getEntityAttributes(Product::ENTITY)
+            )
         ) {
             return $proceed();
         }
