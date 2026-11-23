@@ -32,7 +32,8 @@ class CacheDirectoryData
         if (!$this->scopeConfig->isSetFlag('samjuk_performance/general/directory_data_cache')) {
             return $proceed();
         }
-        $key = 'SAMJUK_PERFORMANCE_DIRECTORY_DATA_' . $this->storeManager->getStore()->getId() . '_' . $this->localeResolver->getLocale();
+        $key = 'SAMJUK_PERFORMANCE_DIRECTORY_DATA_' . $this->storeManager->getStore()->getId()
+            . '_' . $this->localeResolver->getLocale();
         if ($cached = $this->cache->load($key)) {
             return $this->json->unserialize($cached);
         }

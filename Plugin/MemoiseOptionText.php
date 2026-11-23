@@ -25,7 +25,8 @@ class MemoiseOptionText
             return [];
         }
         $attribute = $subject->getAttribute();
-        $key = $attribute->getId() . '|' . $attribute->getStoreId() . '|' . implode(',', (array) $ids) . '|' . (int) $withEmpty;
+        $key = $attribute->getId() . '|' . $attribute->getStoreId()
+            . '|' . implode(',', (array) $ids) . '|' . (int) $withEmpty;
         return $this->options[$key] ??= $proceed($ids, $withEmpty);
     }
 }

@@ -30,7 +30,8 @@ class CacheViewConfig
             return $result;
         }
         $this->assetRepo->updateDesignParams($params);
-        $key = 'SAMJUK_PERFORMANCE_VIEW_CONFIG_' . hash('xxh128', $params['themeModel']->getFullPath() . '|' . ($params['area'] ?? ''));
+        $key = 'SAMJUK_PERFORMANCE_VIEW_CONFIG_'
+            . hash('xxh128', $params['themeModel']->getFullPath() . '|' . ($params['area'] ?? ''));
         if ($cached = $this->cache->load($key)) {
             $data = $this->json->unserialize($cached);
         } else {

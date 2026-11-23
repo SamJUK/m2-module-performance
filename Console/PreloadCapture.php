@@ -19,7 +19,13 @@ class PreloadCapture extends Command
         $this->setName('preload:capture')
             ->setDescription('Record the classes real requests load, for preload:build')
             ->addArgument('action', InputArgument::REQUIRED, 'start or stop')
-            ->addOption('classes', null, InputOption::VALUE_REQUIRED, 'Class list to merge into', 'app/etc/preload-classes.txt');
+            ->addOption(
+                'classes',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Class list to merge into',
+                'app/etc/preload-classes.txt'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

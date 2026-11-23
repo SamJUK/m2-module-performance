@@ -19,7 +19,10 @@ class CapturePreloadClasses
         }
         register_shutdown_function(static function () use ($dir): void {
             $names = array_merge(get_declared_interfaces(), get_declared_traits(), get_declared_classes());
-            $user = array_filter($names, static fn ($n) => !str_contains($n, '@anonymous') && !(new \ReflectionClass($n))->isInternal());
+            $user = array_filter(
+                $names,
+                static fn ($n) => !str_contains($n, '@anonymous') && !(new \ReflectionClass($n))->isInternal()
+            );
             // phpcs:ignore Generic.PHP.NoSilencedErrors -- capture must never break a request; a lost sample is fine
             @file_put_contents("$dir/" . getmypid() . '-' . hrtime(true) . '.txt', implode("\n", $user));
         });

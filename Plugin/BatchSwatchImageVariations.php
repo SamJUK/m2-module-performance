@@ -17,7 +17,9 @@ use Magento\Swatches\Helper\Data as SwatchHelper;
 // attributes, so this finds the children for the whole listing in one query and loads just those attributes.
 class BatchSwatchImageVariations
 {
-    private const IMAGE_ATTRIBUTES = ['name', 'image', 'small_image', 'thumbnail', 'image_label', 'small_image_label', 'thumbnail_label'];
+    private const IMAGE_ATTRIBUTES = [
+        'name', 'image', 'small_image', 'thumbnail', 'image_label', 'small_image_label', 'thumbnail_label',
+    ];
 
     private ?ListProduct $listing = null;
     /** @var array<string, ProductInterface|false> filters|parent id => child */
@@ -44,8 +46,12 @@ class BatchSwatchImageVariations
         }
     }
 
-    public function aroundLoadVariationByFallback(SwatchHelper $subject, callable $proceed, ProductInterface $parent, array $attributes)
-    {
+    public function aroundLoadVariationByFallback(
+        SwatchHelper $subject,
+        callable $proceed,
+        ProductInterface $parent,
+        array $attributes
+    ) {
         $products = $this->listing?->getLoadedProductCollection()->getItems() ?? [];
         if (!isset($products[$parent->getId()])) {
             return $proceed($parent, $attributes);

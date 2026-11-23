@@ -62,7 +62,11 @@ class BatchParentIds
         $linkField = $this->metadataPool->getMetadata(ProductInterface::class)->getLinkField();
         $select = $connection->select()
             ->from(['l' => $this->resource->getTableName('catalog_product_super_link')], ['product_id'])
-            ->join(['e' => $this->resource->getTableName('catalog_product_entity')], "e.$linkField = l.parent_id", ['entity_id'])
+            ->join(
+                ['e' => $this->resource->getTableName('catalog_product_entity')],
+                "e.$linkField = l.parent_id",
+                ['entity_id']
+            )
             ->where('l.product_id IN (?)', $ids, \Zend_Db::INT_TYPE);
         foreach ($ids as $id) {
             $this->parents[$id] = [];

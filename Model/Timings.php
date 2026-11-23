@@ -48,6 +48,8 @@ class Timings
             return $this->fullPageCache;
         }
         $cacheControl = $response->getHeader('Cache-Control');
-        return $cacheControl && preg_match('/public.*s-maxage=/', $cacheControl->getFieldValue()) ? 'miss' : 'not cacheable';
+        return $cacheControl && preg_match('/public.*s-maxage=/', $cacheControl->getFieldValue())
+            ? 'miss'
+            : 'not cacheable';
     }
 }

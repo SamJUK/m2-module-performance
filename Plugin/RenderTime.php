@@ -39,7 +39,8 @@ class RenderTime
         . '.samjuk-render-time summary{cursor:pointer;text-decoration:underline dotted}'
         . '.samjuk-render-time table{position:absolute;right:0;bottom:calc(100% + 8px);z-index:100;width:auto;'
         . 'margin:0;padding:8px 12px;border-collapse:separate;border-spacing:0;background:#111827;color:#f9fafb;'
-        . 'border:1px solid #374151;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.35);font-size:12px;line-height:1.8;'
+        . 'border:1px solid #374151;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.35);'
+        . 'font-size:12px;line-height:1.8;'
         . 'white-space:nowrap;font-variant-numeric:tabular-nums}'
         . '.samjuk-render-time th,.samjuk-render-time td{padding:0 0 0 16px;border:0;background:none;'
         . 'font-weight:400;text-align:right}'
@@ -100,7 +101,8 @@ class RenderTime
         foreach (self::LABELS as $name => $label) {
             if ($metric = $this->timings->get($name)) {
                 $units = self::PARTS[$name] ?? null;
-                $metrics[$name] = [$label, $metric[0], $units ? "$metric[1] " . $units[$metric[1] === 1 ? 0 : 1] : null];
+                $unit = $units ? "$metric[1] " . $units[$metric[1] === 1 ? 0 : 1] : null;
+                $metrics[$name] = [$label, $metric[0], $unit];
             }
         }
         if (isset($metrics['cache'])) {
