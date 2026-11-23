@@ -51,8 +51,7 @@ class BatchSwatchImageVariations
         callable $proceed,
         ProductInterface $parent,
         array $attributes
-    )
-    {
+    ) {
         $products = $this->listing?->getLoadedProductCollection()->getItems() ?? [];
         if (!isset($products[$parent->getId()])) {
             return $proceed($parent, $attributes);
