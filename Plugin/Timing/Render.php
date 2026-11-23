@@ -13,6 +13,7 @@ class Render
     {
     }
 
+    /** @return ResultInterface */
     public function aroundRenderResult(ResultInterface $subject, callable $proceed, ResponseInterface $response)
     {
         return $this->timings->measure('render', $proceed, [$response]);

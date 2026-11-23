@@ -14,6 +14,10 @@ class FullPageCache
     {
     }
 
+    /**
+     * @param Http|false $result
+     * @return Http|false
+     */
     public function afterLoad(Kernel $subject, $result)
     {
         if ($result !== false) {

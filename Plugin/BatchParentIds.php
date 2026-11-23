@@ -16,8 +16,11 @@ use Magento\Framework\EntityManager\MetadataPool;
 // listings load child collections whose parents nobody asks for.
 class BatchParentIds
 {
+    /** @var array<int, list<int|string>> child id => parent ids */
     private array $parents = [];
+    /** @var array<int, true> */
     private array $pending = [];
+    /** @var \WeakMap<Collection, true> */
     private \WeakMap $seen;
 
     public function __construct(
@@ -43,6 +46,10 @@ class BatchParentIds
         return $result;
     }
 
+    /**
+     * @param int|string|array<int|string> $childId
+     * @return array<int|string>
+     */
     public function aroundGetParentIdsByChild(Configurable $subject, callable $proceed, $childId)
     {
         if (!is_scalar($childId)) {

@@ -31,6 +31,7 @@ class TimedCache extends Bare
         return $result;
     }
 
+    /** @param string[] $tags */
     public function save($data, $identifier, array $tags = [], $lifeTime = null)
     {
         if ($this->outer) {

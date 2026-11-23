@@ -4,9 +4,11 @@ declare(strict_types=1);
 namespace SamJUK\Performance\Plugin;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\Request\Http as HttpRequest;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\App\Response\Http;
+use Magento\Framework\DB\Adapter\Pdo\Mysql;
 use SamJUK\Performance\Model\Timings;
 
 // Time from PHP accepting the request to sending the response, with the breakdown from Timings. Varnish caches it
@@ -61,7 +63,9 @@ class RenderTime
 
     public function beforeSendResponse(Http $subject): void
     {
-        $total = (microtime(true) - $this->request->getServer('REQUEST_TIME_FLOAT')) * 1000;
+        /** @var HttpRequest $request */
+        $request = $this->request;
+        $total = (microtime(true) - $request->getServer('REQUEST_TIME_FLOAT')) * 1000;
         $ms = sprintf('%.1f', $total);
         $metrics = $this->metrics();
         $memory = sprintf('%.1fMB', memory_get_peak_usage() / 1048576);
@@ -94,7 +98,9 @@ class RenderTime
         if (!$this->timings->enabled) {
             return [];
         }
-        $profiler = $this->resource->getConnection()->getProfiler();
+        /** @var Mysql $connection */
+        $connection = $this->resource->getConnection();
+        $profiler = $connection->getProfiler();
         $this->timings->add('db', $profiler->getTotalElapsedSecs() * 1000, $profiler->getTotalNumQueries());
 
         $metrics = [];
@@ -112,6 +118,7 @@ class RenderTime
         return $metrics;
     }
 
+    /** @param array<string, array{string, float, ?string}> $metrics */
     private function footer(string $ms, array $metrics, string $memory, ?string $fpc): string
     {
         $rows = '';

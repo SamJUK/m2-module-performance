@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace SamJUK\Performance\Plugin\Timing;
 
 use Magento\Framework\Search\RequestInterface;
+use Magento\Framework\Search\ResponseInterface;
 use Magento\Framework\Search\SearchEngineInterface;
 use SamJUK\Performance\Model\Timings;
 
@@ -14,6 +15,7 @@ class Search
     {
     }
 
+    /** @return ResponseInterface */
     public function aroundSearch(SearchEngineInterface $subject, callable $proceed, RequestInterface $request)
     {
         return $this->timings->measure('search', $proceed, [$request]);

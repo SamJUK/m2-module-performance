@@ -15,6 +15,7 @@ class ClassList
     private const DECLARATIONS = [T_NAMESPACE, T_USE, T_DECLARE, T_CLASS, T_INTERFACE, T_TRAIT, T_ENUM, T_FUNCTION,
         T_ABSTRACT, T_FINAL, T_READONLY, T_ATTRIBUTE, T_CONST, T_IF, T_RETURN];
 
+    /** @return array{int, array<string, string>} kept count, class => why dropped */
     public function write(string $source, string $target): array
     {
         $loader = AutoloaderRegistry::getAutoloader();

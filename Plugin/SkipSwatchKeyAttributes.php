@@ -6,6 +6,7 @@ namespace SamJUK\Performance\Plugin;
 use Magento\Catalog\Model\Product;
 use Magento\Eav\Model\Config as EavConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\Request\Http as HttpRequest;
 use Magento\Framework\App\RequestInterface;
 use Magento\Swatches\Block\Product\Renderer\Listing\Configurable as ListingRenderer;
 use Magento\Swatches\Helper\Data as SwatchHelper;
@@ -24,11 +25,14 @@ class SkipSwatchKeyAttributes
     ) {
     }
 
+    /** @return string */
     public function aroundGetCacheKey(ListingRenderer $subject, callable $proceed)
     {
+        /** @var HttpRequest $request */
+        $request = $this->request;
         if (!$this->scopeConfig->isSetFlag('samjuk_performance/general/queries')
             || array_intersect_key(
-                $this->request->getQuery()->toArray(),
+                $request->getQuery()->toArray(),
                 $this->eavConfig->getEntityAttributes(Product::ENTITY)
             )
         ) {
@@ -42,6 +46,10 @@ class SkipSwatchKeyAttributes
         }
     }
 
+    /**
+     * @param Product $product
+     * @return array<mixed>
+     */
     public function aroundGetAttributesFromConfigurable(SwatchHelper $subject, callable $proceed, $product)
     {
         return $this->skip ? [] : $proceed($product);

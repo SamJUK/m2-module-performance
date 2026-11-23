@@ -17,6 +17,10 @@ class MsrpApplyTo
     ) {
     }
 
+    /**
+     * @param Product $product
+     * @return bool
+     */
     public function aroundCanApplyToProduct(Msrp $subject, callable $proceed, $product)
     {
         if (!$this->scopeConfig->isSetFlag('samjuk_performance/general/queries')) {

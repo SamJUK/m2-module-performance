@@ -22,6 +22,7 @@ class BatchConfigurableSalable
     private array $pending = [];
     /** @var array<int, array<int, int>> store => entity id => salable children */
     private array $counts = [];
+    /** @var \WeakMap<Collection, true> */
     private \WeakMap $seen;
 
     public function __construct(
@@ -39,7 +40,9 @@ class BatchConfigurableSalable
             return $result;
         }
         $this->seen[$result] = true;
-        foreach ($result->getItems() as $id => $product) {
+        /** @var array<int, Product> $products */
+        $products = $result->getItems();
+        foreach ($products as $id => $product) {
             $storeId = (int) $product->getStoreId();
             if ($storeId && $product->getTypeId() === Configurable::TYPE_CODE && !isset($this->counts[$storeId][$id])) {
                 $this->pending[$storeId][(int) $id] = $product;
@@ -48,6 +51,10 @@ class BatchConfigurableSalable
         return $result;
     }
 
+    /**
+     * @param Product $product
+     * @return bool
+     */
     public function aroundIsSalable(Configurable $subject, callable $proceed, $product)
     {
         $storeId = (int) $product->getStoreId();

@@ -10,12 +10,18 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 // for attributes the product doesn't have (option_id IN ('') never matches).
 class MemoiseOptionText
 {
+    /** @var array<string, array<mixed>> */
     private array $options = [];
 
     public function __construct(private readonly ScopeConfigInterface $scopeConfig)
     {
     }
 
+    /**
+     * @param string|array<int|string>|null $ids
+     * @param bool $withEmpty
+     * @return array<mixed>
+     */
     public function aroundGetSpecificOptions(Table $subject, callable $proceed, $ids, $withEmpty = true)
     {
         if (!$this->scopeConfig->isSetFlag('samjuk_performance/general/queries')) {

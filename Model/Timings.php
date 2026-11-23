@@ -23,6 +23,7 @@ class Timings
         $this->metrics[$name][1] = ($this->metrics[$name][1] ?? 0) + $calls;
     }
 
+    /** @param array<mixed> $args */
     public function measure(string $name, callable $proceed, array $args): mixed
     {
         if (!$this->enabled) {
@@ -36,6 +37,7 @@ class Timings
         }
     }
 
+    /** @return array{float, int}|null */
     public function get(string $name): ?array
     {
         return $this->metrics[$name] ?? null;

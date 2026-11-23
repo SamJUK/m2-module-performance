@@ -5,7 +5,9 @@ namespace SamJUK\Performance\Plugin;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Block\Product\AbstractProduct;
+use Magento\Catalog\Block\Product\Image;
 use Magento\Catalog\Block\Product\ListProduct;
+use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -33,6 +35,10 @@ class BatchSwatchImageVariations
     }
 
     // sortOrder below Swatches' ProductImage, so its beforeGetImage() runs inside this
+    /**
+     * @param mixed ...$args
+     * @return Image
+     */
     public function aroundGetImage(AbstractProduct $subject, callable $proceed, ...$args)
     {
         if (!$subject instanceof ListProduct || !$this->scopeConfig->isSetFlag('samjuk_performance/general/queries')) {
@@ -46,12 +52,17 @@ class BatchSwatchImageVariations
         }
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     * @return ProductInterface|bool
+     */
     public function aroundLoadVariationByFallback(
         SwatchHelper $subject,
         callable $proceed,
         ProductInterface $parent,
         array $attributes
     ) {
+        /** @var array<int, Product> $products */
         $products = $this->listing?->getLoadedProductCollection()->getItems() ?? [];
         if (!isset($products[$parent->getId()])) {
             return $proceed($parent, $attributes);
@@ -63,6 +74,10 @@ class BatchSwatchImageVariations
         return $this->children[$key];
     }
 
+    /**
+     * @param array<int, Product> $products
+     * @param array<string, mixed> $attributes
+     */
     private function resolve(SwatchHelper $helper, array $products, array $attributes): void
     {
         $linkField = $this->metadataPool->getMetadata(ProductInterface::class)->getLinkField();

@@ -12,6 +12,7 @@ use Magento\Framework\App\ScopeResolverInterface;
 // then getConfigurableAttributes() and getConfigurableOptions() from MSI's AdaptAssignStatusToProductPlugin.
 class MemoiseConfigurableOptions
 {
+    /** @var array<string, array<mixed>> */
     private array $options = [];
 
     public function __construct(
@@ -20,6 +21,10 @@ class MemoiseConfigurableOptions
     ) {
     }
 
+    /**
+     * @param int|string $productId
+     * @return array<mixed>
+     */
     public function aroundGetAttributeOptions(
         AttributeOptionProvider $subject,
         callable $proceed,
