@@ -16,6 +16,7 @@ class DiConstants
         return 'SamJUKPerformanceDi_' . $area;
     }
 
+    /** @return list<string> areas written */
     public function write(string $meta): array
     {
         $done = [];

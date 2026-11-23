@@ -20,6 +20,10 @@ class CacheStoreScopes
     ) {
     }
 
+    /**
+     * @param string $path
+     * @return array<mixed>
+     */
     public function aroundGet(RuntimeConfigSource $subject, callable $proceed, $path = ''): array
     {
         if ($cached = $this->cache->load(self::KEY)) {

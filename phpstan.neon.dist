@@ -11,8 +11,6 @@ parameters:
         - registration.php
         - bin
         - preload.php
-    # ponytail: experimental module, level 1 like the other modules; dev-standards default is 6.
-    level: 1
     # Magento's docblocks under-promise (getStoreFilter() can return null), so don't trust them as certain.
     treatPhpDocTypesAsCertain: false
     ignoreErrors:

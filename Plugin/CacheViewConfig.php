@@ -21,6 +21,7 @@ class CacheViewConfig
     ) {
     }
 
+    /** @param array<string, mixed> $params */
     public function afterGetViewConfig(Config $subject, View $result, array $params = []): View
     {
         // ponytail: bench only, writes View::$data directly; upstream this belongs in View\Config itself

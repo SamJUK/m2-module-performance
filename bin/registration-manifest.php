@@ -3,7 +3,7 @@
 // Usage: php registration-manifest.php <magento root>. Run by preload:build in its own process, because
 // registering a component twice throws. Replaces the ~400 registration.php files composer includes on
 // every request with one generated file. composer dump-autoload undoes it.
-$bp = $argv[1];
+$bp = $_SERVER['argv'][1];
 $static = file_get_contents("$bp/vendor/composer/autoload_static.php");
 if (str_contains($static, "'samjuk-perf-registrations'")) {
     exit("already applied\n");

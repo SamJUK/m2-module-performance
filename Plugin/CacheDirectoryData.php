@@ -27,6 +27,7 @@ class CacheDirectoryData
     ) {
     }
 
+    /** @return array<string, mixed> */
     public function aroundGetSectionData(DirectoryData $subject, callable $proceed): array
     {
         if (!$this->scopeConfig->isSetFlag('samjuk_performance/general/directory_data_cache')) {

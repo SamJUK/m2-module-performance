@@ -17,6 +17,10 @@ class ReuseCurrentCategoryInLayer
     ) {
     }
 
+    /**
+     * @param int|string|null $categoryId
+     * @return array{int|string|null}
+     */
     public function beforeSetCategoryId(Category $subject, $categoryId): array
     {
         $current = $this->registry->registry('current_category');

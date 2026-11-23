@@ -6,6 +6,7 @@ namespace SamJUK\Performance\Plugin;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Review\Model\RatingFactory;
 use Magento\Review\Model\Rating\Option\VoteFactory;
+use Magento\Review\Model\ResourceModel\Rating\Option\Vote\Collection as VoteCollection;
 use Magento\Review\Model\ResourceModel\Review\Collection;
 use Magento\Store\Model\StoreManagerInterface;
 
@@ -26,7 +27,9 @@ class BatchReviewVotes
             return $proceed();
         }
         $storeId = $this->storeManager->getStore()->getId();
-        $all = $this->voteFactory->create()->getResourceCollection()->setStoreFilter($storeId)->addRatingInfo($storeId);
+        /** @var VoteCollection $all */
+        $all = $this->voteFactory->create()->getResourceCollection();
+        $all->setStoreFilter($storeId)->addRatingInfo($storeId);
         $all->getSelect()->where('main_table.review_id IN (?)', array_keys($subject->getItems()));
 
         $byReview = [];

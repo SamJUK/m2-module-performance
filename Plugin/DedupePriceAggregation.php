@@ -12,12 +12,18 @@ use Magento\Framework\Search\Request\BucketInterface;
 // the same range again. Keeps the EntityStorage referenced so its object id can't be reused this request.
 class DedupePriceAggregation
 {
+    /** @var array<string, array{EntityStorage, array<mixed>}> */
     private array $results = [];
 
     public function __construct(private readonly ScopeConfigInterface $scopeConfig)
     {
     }
 
+    /**
+     * @param array<mixed> $dimensions
+     * @param int|string $range
+     * @return array<mixed>
+     */
     public function aroundGetAggregation(
         DataProvider $subject,
         callable $proceed,
